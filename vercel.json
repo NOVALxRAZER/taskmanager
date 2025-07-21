@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "task-manager-ui/vite.config.js",
+      "src": "task-manager-ui/package.json",
       "use": "@vercel/static-build",
       "config": { "distDir": "dist" }
     },
