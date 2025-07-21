@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "task-manager-ui/vite.config.js",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "task-manager-apiserver/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "task-manager-apiserver/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "task-manager-ui/dist/$1"
+    }
+  ]
+}
