@@ -21,7 +21,7 @@ const TaskForm = () => {
     // Fetch all tasks
     const fetchTasks = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/tasks');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks`);
             setTasks(res.data);
         } catch (err) {
             SweetAlert({
@@ -46,7 +46,7 @@ const TaskForm = () => {
         }
 
         try {
-            const res = await axios.post('http://localhost:5000/api/tasks', form);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks`, form);
             if (res?.data.success === true) {
                 SweetAlert({
                     icon: 'success',
@@ -66,7 +66,7 @@ const TaskForm = () => {
     // Toggle task completion
     const toggleTask = async (task) => {
         try {
-            await axios.patch(`http://localhost:5000/api/tasks/${task.id}`, {
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}`, {
                 completed: !task?.completed,
                 title: task?.title,
                 description: task?.description
@@ -83,7 +83,7 @@ const TaskForm = () => {
     // Delete a task
     const deleteTask = async (id) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`);
             if (res?.data.success === true) {
                 SweetAlert({
                     icon: 'success',
