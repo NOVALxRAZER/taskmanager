@@ -12,6 +12,7 @@ import {
     CardActions,
     Stack
 } from '@mui/material';
+import { generatePDF } from '../utils/pdfHelper';
 
 const TaskForm = () => {
     const [tasks, setTasks] = useState([]);
@@ -125,6 +126,15 @@ const TaskForm = () => {
                     Add Task
                 </Button>
             </Box>
+
+            <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => generatePDF(tasks)}
+                sx={{ mb: 3 }}
+            >
+                Export as PDF
+            </Button>
 
             <Stack spacing={2}>
                 {tasks?.map((task) => (
