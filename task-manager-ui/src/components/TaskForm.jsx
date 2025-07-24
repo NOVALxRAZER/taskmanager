@@ -115,7 +115,7 @@ const TaskForm = () => {
         }
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks`, data);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks`, form);
 
             if (res?.data.success === true) {
                 SweetAlert({
@@ -144,7 +144,7 @@ const TaskForm = () => {
     const handleEdit = async (e) => {
         e.preventDefault();
 
-        const { title, pic_name, start_date, end_date } = form;
+        const { title, pic_name, start_date, end_date } = data;
 
         if (!title || !pic_name || !start_date || !end_date) {
             return SweetAlert({
@@ -154,7 +154,7 @@ const TaskForm = () => {
         }
 
         try {
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/${poin?.id}`, form);
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/${poin?.id}`, data);
 
             if (res?.data.success === true) {
                 SweetAlert({
