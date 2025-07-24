@@ -38,14 +38,6 @@ const TaskForm = () => {
         start_date: '',
         end_date: '',
     });
-    const [data, setData] = useState({
-        id: '',
-        title: '',
-        description: '',
-        pic_name: '',
-        start_date: '',
-        end_date: '',
-    });
 
     const modalStyle = {
         position: 'absolute',
@@ -75,13 +67,13 @@ const TaskForm = () => {
     const getTasks = async (taskId) => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`);
-            setData({
-                id: res.data.id || '',
-                title: res.data.title || '',
-                description: res.data.description || '',
-                pic_name: res.data.pic_name || '',
-                start_date: res.data.start_date ? moment(res.data.start_date).format('YYYY-MM-DD') : '',
-                end_date: res.data.end_date ? moment(res.data.end_date).format('YYYY-MM-DD') : '',
+            setForm({
+                id: res?.data.id || '',
+                title: res?.data.title || '',
+                description: res?.data.description || '',
+                pic_name: res?.data.pic_name || '',
+                start_date: res?.data.start_date ? moment(res.data.start_date).format('YYYY-MM-DD') : '',
+                end_date: res?.data.end_date ? moment(res.data.end_date).format('YYYY-MM-DD') : '',
             });
         } catch (err) {
             SweetAlert({
@@ -400,8 +392,8 @@ const TaskForm = () => {
                     <TextField
                         label="Title"
                         fullWidth
-                        value={data.title}
-                        onChange={(e) => setData({ ...data, title: e.target.value })}
+                        value={form.title}
+                        onChange={(e) => setForm({ ...form, title: e.target.value })}
                         sx={{ mb: 2 }}
                     />
 
@@ -410,16 +402,16 @@ const TaskForm = () => {
                         fullWidth
                         multiline
                         minRows={2}
-                        value={data.description}
-                        onChange={(e) => setData({ ...data, description: e.target.value })}
+                        value={form.description}
+                        onChange={(e) => setForm({ ...form, description: e.target.value })}
                         sx={{ mb: 2 }}
                     />
 
                     <TextField
                         label="PIC Name"
                         fullWidth
-                        value={data.pic_name}
-                        onChange={(e) => setData({ ...data, pic_name: e.target.value })}
+                        value={form.pic_name}
+                        onChange={(e) => setForm({ ...form, pic_name: e.target.value })}
                         sx={{ mb: 2 }}
                     />
 
@@ -429,16 +421,16 @@ const TaskForm = () => {
                             type="date"
                             fullWidth
                             InputLabelProps={{ shrink: true }}
-                            value={data.start_date}
-                            onChange={(e) => setData({ ...data, start_date: e.target.value })}
+                            value={form.start_date}
+                            onChange={(e) => setForm({ ...form, start_date: e.target.value })}
                         />
                         <TextField
                             label="End Date"
                             type="date"
                             fullWidth
                             InputLabelProps={{ shrink: true }}
-                            value={data.end_date}
-                            onChange={(e) => setData({ ...data, end_date: e.target.value })}
+                            value={form.end_date}
+                            onChange={(e) => setForm({ ...form, end_date: e.target.value })}
                         />
                     </Box>
 
