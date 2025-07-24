@@ -64,6 +64,30 @@ const TaskForm = () => {
         }
     };
 
+    const getTasks = async (taskId) => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`);
+            setForm({
+                title: res.data.title || '',
+                description: res.data.description || '',
+                pic_name: res.data.pic_name || '',
+                start_date: res.data.start_date ? moment(res.data.start_date).format('YYYY-MM-DD') : '',
+                end_date: res.data.end_date ? moment(res.data.end_date).format('YYYY-MM-DD') : '',
+            });
+        } catch (err) {
+            SweetAlert({
+                icon: 'error',
+                text: 'Error to Fetch Tasks!',
+            });
+        }
+    };
+
+    const buka = (task) => {
+        setPoin(task.id)
+        setEditModal(true)
+        getTasks(task.id)
+    }
+
     useEffect(() => {
         fetchTasks();
     }, []);
@@ -162,7 +186,6 @@ const TaskForm = () => {
                     title: task?.title,
                     description: task?.description
                 }).then((res) => {
-                    console.log(res)
                     if (res.data.status === true) {
                         fetchTasks();
                     } else {
@@ -268,7 +291,7 @@ const TaskForm = () => {
                                                     titleAccess={task.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
                                                 />
                                                 <EditIcon
-                                                    onClick={() => { setEditModal(true); setPoin(task) }}
+                                                    onClick={() => buka(task)}
                                                     sx={{
                                                         cursor: 'pointer',
                                                         color: '#1976d2',
