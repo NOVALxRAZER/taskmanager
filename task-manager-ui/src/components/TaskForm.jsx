@@ -28,7 +28,6 @@ import { generatePDF } from '../utils/pdfHelper';
 
 const TaskForm = () => {
     const [tasks, setTasks] = useState([]);
-    const [poin, setPoin] = useState(null);
     const [openModal, setOpenModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [form, setForm] = useState({
@@ -92,7 +91,6 @@ const TaskForm = () => {
     };
 
     const buka = (task) => {
-        setPoin(task.id)
         setEditModal(true)
         getTasks(task.id)
     }
@@ -154,7 +152,7 @@ const TaskForm = () => {
         }
 
         try {
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/${poin?.id}`, data);
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/${data?.id}`, data);
 
             if (res?.data.success === true) {
                 SweetAlert({
@@ -163,7 +161,8 @@ const TaskForm = () => {
                 });
             }
             setEditModal(false);
-            setForm({
+            setData({
+                id: '',
                 title: '',
                 description: '',
                 pic_name: '',
